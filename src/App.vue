@@ -7,6 +7,6 @@ import AppFooter from './components/common/AppFooter.vue'
   <q-layout view="lHh lpr lFf" container style="height: 100vh" class="shadow-2 rounded-borders">
     <AppHeader/>
     <AppFooter/>
-    <RouterView /> <!-- 追加 -->
+    <RouterView />
   </q-layout>
 </template>
