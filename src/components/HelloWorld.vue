@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 defineProps<{ msg: string }>()
-
-const count = ref(0)
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <div class="main">
+    <h1 class="main-text">{{ msg }}</h1>
+  </div>
 </template>
 
-<style scoped>
-.read-the-docs {
+<style lang="scss" scoped>
+.main {
   color: #888;
+  &-text {
+    font-size: 120px;
+    font-weight: bold;
+  }
 }
 </style>
