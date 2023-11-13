@@ -1,23 +1,15 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import AppHeader from './components/common/AppHeader.vue'
+import AppFooter from './components/common/AppFooter.vue'
+import PageTop from './pages/Top.vue'
 </script>
 
 <template>
-  <div>HelloWorld!!! </div>
-  <HelloWorld msg="おはよう世界" />
+  <div>
+    <q-layout view="lHh lpr lFf" container style="height: 100vh" class="shadow-2 rounded-borders">
+      <AppHeader/>
+      <AppFooter/>
+      <PageTop/>
+    </q-layout>
+  </div>
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
