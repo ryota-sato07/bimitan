@@ -7,7 +7,7 @@
       <q-avatar>
         <img src="../../assets/images/vue.svg">
       </q-avatar>
-      <q-toolbar-title>SampleApp</q-toolbar-title>
+      <q-toolbar-title>bimitan</q-toolbar-title>
       <q-btn flat round dense icon="menu" />
     </q-toolbar>
   </q-header>
