@@ -23,10 +23,10 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
+    "client/src/**/*.ts",
+    "client/src/**/*.d.ts",
+    "client/src/**/*.tsx",
+    "client/src/**/*.vue"
   ],
   "references": [
     {
