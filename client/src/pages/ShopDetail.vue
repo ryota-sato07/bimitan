@@ -1,0 +1,76 @@
+<template>
+  <q-page-container>
+    <q-page class="q-pa-md fixed-center" style="min-height: 0;">
+      <div class="border-bottom mt-5 mb-5">
+        <h1 class="text-h2">商品詳細name</h1>
+        <p class="h3">
+          <span>padding(score)</span>
+        </p>
+      </div>
+
+      <div>
+        <img class="img-fluid" src="../assets/images/1150x250.png">
+      </div>
+
+      <div class="row">
+        <div class="col-md-8">
+          <div>
+            <h2 class="border-bottom mt-5 mb-5 pb-2"><i class="fa fa-fw fa-book"></i> 店舗情報</h2>
+            <table class="table table-bordered">
+              <colgroup>
+                <col class="bg-light" style="width: 10rem">
+                <col class="">
+              </colgroup>
+              <tr>
+                <th>店名</th>
+                <td>name</td>
+              </tr>
+              <tr>
+                <th>カテゴリー</th>
+                <td>categories</td>
+              </tr>
+              <tr>
+                <th>電話</th>
+                <td>tel</td>
+              </tr>
+              <tr>
+                <th>住所</th>
+                <td>
+                  <div>address</div>
+                  <div id="mapid"></div>
+                </td>
+              </tr>
+              <tr>
+                <th>定休日</th>
+                <td>holiday</td>
+              </tr>
+              <tr>
+                <th>座席数</th>
+                <td>seats</td>
+              </tr>
+              <tr>
+                <th>価格帯</th>
+                <td>price</td>
+              </tr>
+            </table>
+          </div>
+          <div>
+            <div class="position-relative">
+              <h2 class="border-bottom mt-5 mb-5 pb-2"><i class="fa fa-fw fa-comments"></i> 口コミ</h2>
+              <div class="position-absolute" style="right:0; top:0;">
+                <a class="btn btn-outline-success" href="/account/reviews/regist/:id">投稿する</a>
+              </div>
+            </div>
+            <div>
+              <!-- <% } %> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h2 class="border-bottom mt-5 mb-5 pb-2"><i class="fa fa-fw fa-heart"></i> おススメのお店</h2>
+          <!-- Recommends -->
+        </div>
+      </div>
+    </q-page>
+  </q-page-container>
+</template>
