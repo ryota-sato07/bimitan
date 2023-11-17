@@ -68,13 +68,6 @@ https://zenn.dev/chida/articles/882d9fb1d71fa1
 | geolocation_latitude  | float        | YES  |          | 緯度 |
 | geolocation_longitude | float        | YES  |          | 経度 |
 
-### ShopCategory: 店舗情報
-
-| フィールド | 型 | Null | Extra | 説明 |
-| --- | --- | --- | --- | --- |
-| shop_id     | int  | NO   |    | 店舗ID |
-| category_id | int  | NO   |    | カテゴリーID |
-
 ### ShopReview: クチコミ情報
 
 | フィールド | 型 | Null | Extra | 説明 |
@@ -94,3 +87,10 @@ https://zenn.dev/chida/articles/882d9fb1d71fa1
 | id        | int          | NO   | AUTO_INC | 管理ID |
 | parent_id | int          | YES  |          | 親区分ID |
 | name      | varchar(100) | NO   |          | 区分名 |
+
+### ShopCategoryMapping: 料理区分のマッピング情報
+
+| フィールド | 型 | Null | Extra | 説明 |
+| --- | --- | --- | --- | --- |
+| shop_id     | int  | NO   |    | 店舗ID |
+| category_id | int  | NO   |    | カテゴリーID |
