@@ -7,13 +7,17 @@ import { Server } from 'http';
 import serverless from 'aws-serverless-express';
 import 'dotenv/config'
 
+// --[ Variables ]--------------------------------------------------------------
 const app = express();
-const rdsDataService = new RDSDataService();
-const secretsManager = new SecretsManager();
+const rdsDataService = new RDSDataService({ region: process.env.AWS_REGION });
+const secretsManager = new SecretsManager({ region: process.env.AWS_REGION });
 
+// --[ Methods ]----------------------------------------------------------------
 app.use(bodyParser.json());
 
-// Secrets Manager からデータベースの認証情報を取得する関数
+/**
+ * Secrets Manager からデータベースの認証情報を取得する関数
+ */
 async function getDbCredentials(secretId: string): Promise<any> {
   try {
     const data = await secretsManager.getSecretValue({ SecretId: secretId }).promise();
@@ -24,6 +28,9 @@ async function getDbCredentials(secretId: string): Promise<any> {
   }
 }
 
+/**
+ * データの取得関数
+ */
 app.get('/data', async (req: Request, res: Response) => {
   try {
     const credentials = await getDbCredentials(process.env.DB_CREDENTIALS_ID || '');
@@ -41,8 +48,15 @@ app.get('/data', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Lambda 関数の外での Express サーバの初期化
+ */
 const server: Server = serverless.createServer(app);
 
+/**
+ * Lambda で Express アプリケーションをハンドリングするブリッジ
+ */
 export const handler: APIGatewayProxyHandler = (event, context) => {
+  context.callbackWaitsForEmptyEventLoop = false;
   return serverless.proxy(server, event, context, 'PROMISE').promise;
 };
