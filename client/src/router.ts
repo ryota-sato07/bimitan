@@ -24,6 +24,14 @@ const routes = [
       const shopDetail = await import('./pages/ShopDetail.vue');
       return shopDetail;
     }
+  },
+  {
+    path: '/my',
+    name: 'myAccount',
+    component: async () => {
+      const myAccount = await import('./pages/MyAccount.vue');
+      return myAccount;
+    }
   }
 ];
 
