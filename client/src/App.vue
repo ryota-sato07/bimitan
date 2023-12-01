@@ -27,16 +27,9 @@ Amplify.configure(awsconfig);
 </script>
 
 <template>
-  <authenticator>
-    <template v-slot="{ user, signOut }">
-      <q-layout view="lHh lpr lFf" container style="height: 100vh" class="shadow-2 rounded-borders">
-        <AppHeader/>
-        <AppFooter/>
-        <RouterView />
-
-        <h1>Hello {{ user.username }}!</h1>
-        <button @click="signOut">Sign Out</button>
-      </q-layout>
-    </template>
-  </authenticator>
+  <q-layout view="lHh lpr lFf" container style="height: 100vh" class="shadow-2 rounded-borders">
+    <AppHeader/>
+    <AppFooter/>
+    <RouterView />
+  </q-layout>
 </template>
