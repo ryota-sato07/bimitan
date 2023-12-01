@@ -9,13 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-amplify/ui-vue": "^4.0.2",
     "@quasar/extras": "^1.16.8",
+    "aws-amplify": "^6.0.5",
     "quasar": "^2.13.1",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@quasar/vite-plugin": "^1.6.0",
+    "@types/node": "^20.10.1",
     "@vitejs/plugin-vue": "^4.4.1",
     "sass": "1.32.12",
     "typescript": "^5.2.2",
