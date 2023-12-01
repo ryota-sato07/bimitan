@@ -17,6 +17,9 @@
           "appId": "d2xswjef51025r",
           "type": "manual"
         }
+      },
+      "auth": {
+        "amplifyebaaf05f": {}
       }
     }
   }
