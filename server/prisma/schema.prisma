@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DB_URL_BIMITAN")
+//   url      = env("DB_URL_BIMITAN_STORE")
+}
+
+model GeoAddress {
+  id             Int      @id @unique(map: "idx_user_id") @default(autoincrement()) @map("id")
+  jisCode        Int      @map("jis_code")
+  postCode       String   @db.VarChar(7) @map("post_code")
+  prefectureKana String?  @db.VarChar(90) @map("prefecture_kana")
+  cityKana       String?  @db.VarChar(90) @map("city_kana")
+  townKana       String?  @db.VarChar(120) @map("town_kana")
+  prefectureName String?  @db.VarChar(90) @map("prefecture_name")
+  cityName       String?  @db.VarChar(90) @map("city_name")
+  townName       String?  @db.VarChar(120) @map("town_name")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@index([postCode], map: "idx_address_post_code")
+  @@map("geo_address")
+}
+
+model User {
+  id          Int       @id @unique(map: "idx_user_id") @default(autoincrement()) @map("id")
+  name        String?   @db.VarChar(45) @map("name")
+  email       String    @unique(map: "idx_user_email") @db.VarChar(45) @map("email")
+  password    String    @db.VarChar(60) @map("password")
+  description String?   @db.VarChar(1000) @map("description")
+  lockedAt    DateTime? @db.DateTime(0) @map("locked_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  userLoginHistory  UserLoginHistory[]
+  userSession       UserSession[]
+  shopReview        ShopReview[]
+
+  @@map("user")
+}
+
+model UserLoginHistory {
+  id         Int      @id @default(autoincrement()) @map("id")
+  userId     Int      @map("user_id")
+  loginAt    DateTime @db.DateTime(0) @map("login_at")
+  hostName   String?  @db.VarChar(256) @map("host_name")
+  userAgent  String?  @db.VarChar(512) @map("user_agent")
+  status     Int      @map("status")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, loginAt], map: "idx_login_history_user_id")
+  @@map("user_login_history")
+}
+
+model UserSession {
+  token      String   @id @db.VarChar(128) @map("token")
+  userId     Int      @map("user_id")
+  expires    Int      @map("expires")
+  data       String?  @db.Text @map("data")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "user_id")
+  @@map("user_session")
+}
+
+model Shop {
+  id          Int      @id @unique(map: "idx_shop_id") @default(autoincrement()) @map("id")
+  name        String   @db.VarChar(120) @map("name")
+  kana        String?  @db.VarChar(120) @map("kana")
+  tel         String?  @db.VarChar(45) @map("tel")
+  holiday     String?  @db.VarChar(45) @map("holiday")
+  seats       Int?     @map("seats")
+  priceRange  String?  @db.VarChar(20) @map("price_range")
+  score       Float?   @db.Float @map("score")
+  status      Int      @map("status")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  shopCategoryMapping ShopCategoryMapping[]
+  shopLocation        ShopLocation?
+  shopReview          ShopReview[]
+
+  @@map("shop")
+}
+
+model ShopCategory {
+  id         Int      @id @unique(map: "idx_category_id") @default(autoincrement()) @map("id")
+  parentId   Int?     @map("parent_id")
+  name       String   @db.VarChar(100) @map("name")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("shop_category")
+}
+
+model ShopCategoryMapping {
+  id              Int      @id @default(autoincrement()) @map("id")
+  shopId          Int      @map("shop_id")
+  shopCategoryId  Int      @map("shop_category_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  shop            Shop     @relation(fields: [shopId], references: [id])
+
+  @@index([shopCategoryId], map: "idx_shop_category_mapping_category_id")
+  @@index([shopId], map: "idx_shop_category_mapping_shop_id")
+  @@map("shop_category_mapping")
+}
+
+model ShopLocation {
+  shopId     Int      @id @map("shop_id")
+  postCode   String   @db.VarChar(7) @map("post_code")
+  address    String?  @db.VarChar(200) @map("address")
+  latitude   Float?   @db.Float @map("latitude")
+  longitude  Float?   @db.Float @map("longitude")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  shop       Shop     @relation(fields: [shopId], references: [id])
+
+  @@index([postCode], map: "idx_location_post_code")
+  @@map("shop_location")
+}
+
+model ShopReview {
+  id          Int       @id @unique(map: "idx_review_id") @default(autoincrement()) @map("id")
+  shopId      Int       @map("shop_id")
+  userId      Int       @map("user_id")
+  score       Int?      @map("score")
+  visitAt     DateTime? @db.DateTime(0) @map("visit_at")
+  postAt      DateTime? @db.DateTime(0) @map("post_at")
+  description String?   @db.LongText @map("description")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  shop        Shop      @relation(fields: [shopId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@index([shopId], map: "idx_review_shop_id")
+  @@index([userId], map: "idx_review_user_id")
+  @@map("shop_review")
+}
